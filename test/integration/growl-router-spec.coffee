@@ -50,7 +50,7 @@ describe 'growl-express', ->
             label: "test"
 
       request.post options, (error, @response, @body) =>
-        console.log "\tbody: '#{@body}'"
+        console.log "\tresponse-body: '#{@body}'"
         done error
 
     it 'should return a 200', ->

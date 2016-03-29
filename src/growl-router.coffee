@@ -6,7 +6,7 @@ class GrowlRouter
 
     app.post '/register', (request, response) =>
       {appname, appicon, notifications} = request.body
-      appname = 'growl-express-'+Date.now() unless appname?
+      appname ?= 'growl-express-'+Date.now()
       growly.register appname, appicon, notifications, (error) =>
         return response.status(500).send(error.message) if error?
         response.sendStatus(200)

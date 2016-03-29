@@ -4,38 +4,42 @@
 
 ## Installing
 
-```bash
-$ npm install growl-express
+```shell-script
+$ npm install --global growl-express
 ```
 
 ### Usage
 
 ```shell-script
 
-curl -H "Content-Type: application/json" -X POST -d '{
-  "notifications": [
-    { "label": "default", "icon": "http://imgur.com/amjVCj6.jpg" },
-    { "label": "success", "icon": "http://imgur.com/WjZjXjP.jpg" },
-    { "label": "error", "icon": "http://imgur.com/rvtftG9.jpg" }
-  ] }' http://localhost:23054/register
+$ growl-express
+Server listening on :::23054
+ ...
 
-curl -s -H "Content-Type: application/json" -X POST -d '{
-    "text": "such notify!",
-    "options": { "title": "wow" }
-  }' http://localhost:23054/notify &
+$ curl -H "Content-Type: application/json" -X POST -d '{
+    "notifications": [
+      { "label": "default", "icon": "http://imgur.com/amjVCj6.jpg" },
+      { "label": "success", "icon": "http://imgur.com/WjZjXjP.jpg" },
+      { "label": "error", "icon": "http://imgur.com/rvtftG9.jpg" }
+    ] }' http://localhost:23054/register
 
-curl -s -H "Content-Type: application/json" -X POST -d '{
-    "text": "systems ok!",
-    "options": { "label": "success" }
-  }' http://localhost:23054/notify &
+$ curl -s -H "Content-Type: application/json" -X POST -d '{
+      "text": "such notify!",
+      "options": { "title": "wow" }
+    }' http://localhost:23054/notify &
 
-curl -H "Content-Type: application/json" -X POST -d '{
-    "text": "everything is broken!",
-    "options": {
-      "title":"oh no! 😢",
-      "label":"error",
-      "sticky":true }
-  }' http://localhost:23054/notify
+$ curl -s -H "Content-Type: application/json" -X POST -d '{
+      "text": "systems ok!",
+      "options": { "label": "success" }
+    }' http://localhost:23054/notify &
+
+$ curl -H "Content-Type: application/json" -X POST -d '{
+      "text": "everything is broken!",
+      "options": {
+        "title":"oh no! 😢",
+        "label":"error",
+        "sticky":true }
+    }' http://localhost:23054/notify
 
 ```
 

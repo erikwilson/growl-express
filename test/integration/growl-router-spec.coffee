@@ -26,6 +26,7 @@ describe 'growl-express', ->
         baseUrl: "http://localhost:#{@serverPort}"
         json: true
         body:
+          appname: 'growl-express-test'
           notifications:
             [{ "label": "test", "icon": "http://imgur.com/amjVCj6.jpg" }]
 

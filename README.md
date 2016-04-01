@@ -29,7 +29,7 @@ Registers a new application with Growl. Registration is completely optional sinc
 #### Parameters
 
 - `appname` the name of the application (default is 'growl-express')
-- `appicon` url, file path, or Buffer instance for an application icon image.
+- `appicon` url or file path for an application icon image.
 - `notifications` a list of defined notification types with the following properties:
   - `.label` name used to identify the type of notification being used (required.)
   - `.dispname` name users will see in Growl's preference panel (defaults to `.label`.)
@@ -91,8 +91,8 @@ Set the host and port that Growl (GNTP) requests will be sent to. Using this met
 
 #### Parameters
 
-- `host` GNTP host
-- `port` GNTP port
+- `host` some GNTP host.
+- `port` some GNTP port.
 
 #### Example
 

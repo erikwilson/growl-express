@@ -1,6 +1,6 @@
 {
   "name": "growl-express",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "growl notifiations via http",
   "keywords": [],
   "homepage": "https://github.com/erikwilson/growl-express",

@@ -79,7 +79,7 @@ curl --header "Content-Type: application/json" --request POST --data '{
 curl --header "Content-Type: application/json" --request POST --data '{
     "text": "everything is broken!",
     "options": {
-      "title":"oh no! <U+1F622>",
+      "title":"oh no! 😢",
       "label":"error",
       "sticky":true }
   }' http://localhost:23054/notify

@@ -8,41 +8,103 @@
 $ npm install --global growl-express
 ```
 
-### Usage
+## Startup
+
+Optional environment variables are PORT to define the http listening port
+and DISABLE_LOGGING set as "true" to disable logging.
 
 ```shell-script
-
 $ growl-express
 Server listening on :::23054
- ...
+```
 
-$ curl -H "Content-Type: application/json" -X POST -d '{
+## Usage
+
+The growl-express server exposes three POST methods: `/register`, `/notify`, and `/setHost`.
+
+### [POST] /register
+
+Registers a new application with Growl. Registration is completely optional since it will be performed automatically for you with sensible defaults. Useful if you want your application, with its own icon and types of notifications, to show up in Growl's prefence panel.
+
+#### Parameters
+
+- `appname` the name of the application (default is 'growl-express')
+- `appicon` url, file path, or Buffer instance for an application icon image.
+- `notifications` a list of defined notification types with the following properties:
+  - `.label` name used to identify the type of notification being used (required.)
+  - `.dispname` name users will see in Growl's preference panel (defaults to `.label`.)
+  - `.enabled` whether or not notifications of this type are enabled (defaults to true.)
+  - `.icon` url or file path for the notification's icon.
+
+#### Example
+
+```shell-script
+curl --header "Content-Type: application/json" --request POST --data '{
     "appname": "growl-express-example-app",
     "notifications": [
       { "label": "default", "icon": "http://imgur.com/amjVCj6.jpg" },
       { "label": "success", "icon": "http://imgur.com/WjZjXjP.jpg" },
       { "label": "error",   "icon": "http://imgur.com/rvtftG9.jpg" }
-    ] }' http://localhost:23054/register
-
-$ curl -s -H "Content-Type: application/json" -X POST -d '{
-      "text": "such notify!",
-      "options": { "title": "wow" }
-    }' http://localhost:23054/notify &
-
-$ curl -s -H "Content-Type: application/json" -X POST -d '{
-      "text": "systems ok!",
-      "options": { "label": "success" }
-    }' http://localhost:23054/notify &
-
-$ curl -H "Content-Type: application/json" -X POST -d '{
-      "text": "everything is broken!",
-      "options": {
-        "title":"oh no! 😢",
-        "label":"error",
-        "sticky":true }
-    }' http://localhost:23054/notify
-
+  ] }' http://localhost:23054/register
 ```
+
+### [POST] /notify
+
+Sends a Growl notification. If an application wasn't registered beforehand with `growly.register()`, a default application will automatically be registered beforesending the notification.
+
+#### Parameters
+
+- `text` the body of the notification.
+- `options` an object with the following properties:
+  - `.title` title of the notification.
+  - `.icon` url or file path for the notification's icon.
+  - `.sticky` whether or not to sticky the notification (defaults to false.)
+  - `.label` type of notification to use (defaults to the first registered notification type.)
+  - `.priority` the priority of the notification from lowest (-2) to highest (2).
+  - `.coalescingId` replace/update the matching previous notification. May be ignored.
+
+#### Examples
+
+```shell-script
+curl --header "Content-Type: application/json" --request POST --data '{
+    "text": "such notify!",
+    "options": { "title": "wow" }
+  }' http://localhost:23054/notify
+
+curl --header "Content-Type: application/json" --request POST --data '{
+    "text": "systems ok!",
+    "options": { "label": "success" }
+  }' http://localhost:23054/notify
+
+curl --header "Content-Type: application/json" --request POST --data '{
+    "text": "everything is broken!",
+    "options": {
+      "title":"oh no! <U+1F622>",
+      "label":"error",
+      "sticky":true }
+  }' http://localhost:23054/notify
+```
+
+### [POST] /setHost
+
+Set the host and port that Growl (GNTP) requests will be sent to. Using this method is optional since GNTP defaults to using host 'localhost' and port 23053.
+
+#### Parameters
+
+- `host` GNTP host
+- `port` GNTP port
+
+#### Example
+
+```shell-script
+curl --header "Content-Type: application/json" --request POST --data '{
+    "host": "some-other-host",
+    "port": 1337
+  }' http://localhost:23054/setHost
+```
+
+## See Also
+<https://github.com/theabraham/growly>
 
 ## License
 

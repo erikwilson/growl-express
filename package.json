@@ -9,7 +9,7 @@
     "name": "Erik Wilson",
     "url": "https://github.com/erikwilson"
   },
-  "main": "index.js",
+  "main": "command.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/erikwilson/growl-express.git"
@@ -17,6 +17,7 @@
   "bin": {
     "growl-express": "./command.js"
   },
+  "preferGlobal": true,
   "scripts": {
     "start": "node command.js",
     "test": "mocha"
